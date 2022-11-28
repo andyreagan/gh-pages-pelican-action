@@ -21,6 +21,12 @@ fi
 echo 'Building site 👷 '
 pelican ${PELICAN_CONTENT_FOLDER:=content} -o output -s ${PELICAN_CONFIG_FILE:=pelicanconf.py}
 
+# Remove blog page, move default index to blog page, and "index" page to the actual index.
+# This is a simple trick allowing me to have a custom landing page.
+rm -rf output/pages/blog.html
+mv output/index.html output/pages/blog.html
+mv output/pages/index.html output/
+
 echo 'Publishing to GitHub Pages 📤 '
 pushd output
 git init
